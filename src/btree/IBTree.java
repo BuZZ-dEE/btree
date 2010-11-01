@@ -8,15 +8,15 @@ package btree;
 public interface IBTree {
 	
 	/**
-	 * Fügt den gegebenen Schluessel in den Baum ein.
+	 * Fügt den gegebenen Schl&uuml;ssel in den Baum ein.
 	 * @param key einzufügender Schluessel
 	 */
 	public void insert(int key);
 
 	/**
-	 * Prüft, ob der gegebene Schlüssel im Baum enthalten ist.
+	 * Pr&uuml;ft, ob der gegebene Schl&uuml;ssel im Baum enthalten ist.
 	 * @param key zu suchender Schlüssel
-	 * @return Liefert true, wenn der Schlüssel im Baum enthalten ist, sonst false.
+	 * @return Liefert true, wenn der Schl&uuml;ssel im Baum enthalten ist, sonst false.
 	 */
 	public boolean contains(int key);
 	

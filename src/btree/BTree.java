@@ -36,11 +36,11 @@ public class BTree implements IBTree {
 	}
 	
 	/**
-	 * Prüft, ob der gegebene Schlüssel im Baum enthalten ist.
+	 * Pr&uuml;ft, ob der gegebene Schl&uuml;ssel im Baum enthalten ist.
 	 * 
 	 * @param key, der Schl&uuml;ssel der immernoch gesucht wird
 	 * @param node, der Konten in dem weiter nach dem Schl&uuml;ssel gesucht wird
-	 * @return Liefert true, wenn der Schlüssel im Baum enthalten ist, sonst false.
+	 * @return Liefert true, wenn der Schl&uuml;ssel im Baum enthalten ist, sonst false.
 	 */
 	public boolean contains(int key, Node node) {
 		

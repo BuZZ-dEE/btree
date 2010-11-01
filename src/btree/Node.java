@@ -3,7 +3,7 @@ package btree;
 import java.util.ArrayList;
 
 /**
- * Die Klasse Node repräsentiert einen Knoten eines B-Baums
+ * Die Klasse Node repr&auml;sentiert einen Knoten eines B-Baums
  * 
  * @author BuZZ-dEE
  *
