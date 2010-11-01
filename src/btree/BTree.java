@@ -1,13 +1,11 @@
 package btree;
 
-import java.util.Collections;
-
 /**
  * Die Implementierung eines B-Baums f&uuml;r Integerwerte mit den Operationen
  * Einf&uuml;gen und Suchen
  * 
- * @author Sebastian Schlatow
- * @version 2010-10-27
+ * @author BuZZ-dEE
+ * @version 2010-11-01
  *
  */
 public class BTree implements IBTree {
@@ -21,26 +19,38 @@ public class BTree implements IBTree {
 	public boolean contains(int key) {
 		
 		boolean exists = false;
-//		Iterator<Integer> iter = root.iterator(); 
-//		
-//		for (Integer integer: root) {
-//			if (root.contains(key) && integer.intValue() == key) {
-//				System.out.println(root.indexOf(integer));
-//			} else {
-//				if (iter.next() > key) {
-//					
-//				}
-//			}
-//		}
 		
-		if (root.indexOf(key) >= 0) {
-			System.out.println(root.indexOf(key));
-		} else {
-			for (Integer integer: root) {
-				if (integer > key) {
-					child = root.getChildren().get(root.indexOf(key));
-					child.contains(key);
-				}
+		for (Integer integer: root.keys) {
+			if (integer == key) {
+				System.out.println(root.keys.indexOf(key));
+			} else if (integer > key) {
+				contains(key, root.children.get(root.keys.indexOf(key)));
+			} else {
+				contains(key, root.children.get(root.keys.indexOf(key+1)));
+			}
+		}
+		
+		return exists;
+	}
+	
+	/**
+	 * Prüft, ob der gegebene Schlüssel im Baum enthalten ist.
+	 * 
+	 * @param key, der Schl&uuml;ssel der immernoch gesucht wird
+	 * @param node, der Konten in dem weiter nach dem Schl&uuml;ssel gesucht wird
+	 * @return Liefert true, wenn der Schlüssel im Baum enthalten ist, sonst false.
+	 */
+	public boolean contains(int key, Node node) {
+		
+		boolean exists = false;
+		
+		for (Integer integer: node.keys) {
+			if (integer == key) {
+				System.out.println(node.keys.indexOf(key));
+			} else if (integer > key) {
+				contains(key, node.children.get(node.keys.indexOf(key)));
+			} else {
+				contains(key, node.children.get(node.keys.indexOf(key+1)));
 			}
 		}
 		
@@ -50,7 +60,6 @@ public class BTree implements IBTree {
 	@Override
 	public void insert(int key) {
 		//Node node = new Node();
-		Collections.sort(node);
+		//Collections.sort(node);
 	}
-
 }

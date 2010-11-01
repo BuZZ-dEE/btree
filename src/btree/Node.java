@@ -5,20 +5,16 @@ import java.util.ArrayList;
 /**
  * Die Klasse Node repräsentiert einen Knoten eines B-Baums
  * 
- * @author buzz-dee
+ * @author BuZZ-dEE
  *
  */
-public class Node extends ArrayList<Integer> {
+public class Node {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	public int min_size;
 	public int max_size;
-	//public ArrayList<Integer> keys;
 	public Node father;
 	public ArrayList<Node> children;
+	public ArrayList<Integer> keys;
 	
 	public Node(int min_size, int max_size) {
 		this.min_size = min_size;
