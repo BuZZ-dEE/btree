@@ -23,9 +23,9 @@ public class BTree implements IBTree {
 		for (Integer integer: root.keys) {
 			if (integer == key) {
 				System.out.println(root.keys.indexOf(key));
-			} else if (integer > key && root.children.get(root.keys.indexOf(key)).equals(null)) {
+			} else if (integer > key && root.children.get(root.keys.indexOf(key)) != null) {
 				contains(key, root.children.get(root.keys.indexOf(key)));
-			} else if (root.children.get(root.keys.indexOf(key+1)).equals(null)) {
+			} else if (root.children.get(root.keys.indexOf(key+1)) != null) {
 				contains(key, root.children.get(root.keys.indexOf(key+1)));
 			} else {
 				System.out.println("key not found");
@@ -49,9 +49,9 @@ public class BTree implements IBTree {
 		for (Integer integer: node.keys) {
 			if (integer == key) {
 				System.out.println(node.keys.indexOf(key));
-			} else if (integer > key && root.children.get(root.keys.indexOf(key)).equals(null)) {
+			} else if (integer > key && root.children.get(root.keys.indexOf(key)) != null) {
 				contains(key, node.children.get(node.keys.indexOf(key)));
-			} else if (root.children.get(root.keys.indexOf(key+1)).equals(null)) {
+			} else if (root.children.get(root.keys.indexOf(key+1)) != null) {
 				contains(key, node.children.get(node.keys.indexOf(key+1)));
 			} else {
 				System.out.println("key not found");
