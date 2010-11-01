@@ -13,6 +13,8 @@ public class BTree implements IBTree {
 	public int order = 4;
 	public Node root;
 	public Node child;
+	public Node nodeR;
+	public Node nodeL;
 	public BTree btree;
 	
 	@Override
@@ -60,10 +62,36 @@ public class BTree implements IBTree {
 		
 		return exists;
 	}
+	
+	public void split(Node node) {
+		
+		double halfKeys = (double) (order-1.0) / 2.0;
+		
+		if (node.keys.size() == order-1) {
+			for (int i = 0; i < (int) Math.ceil(halfKeys); i++) {
+				nodeR.keys.add(node.keys.get(i));
+			}
+			for (int i = (int) Math.ceil(halfKeys); i < order; i++) {
+				nodeL.keys.add(node.keys.get(i));
+			}
+			for (int i = 0; i < (int) Math.ceil(halfKeys) + 1; i++) {
+				nodeR.children.add(node.children.get(i));
+			}
+			for (int i = (int) Math.ceil(halfKeys) + 1; i <= order; i++) {
+				nodeL.children.add(node.children.get(i));
+			}
+		}
+	}
 
 	@Override
 	public void insert(int key) {
 		//Node node = new Node();
 		//Collections.sort(node);
+		if (contains(key)) {
+			//System.out.println("key already exists");
+			key++;
+		} else {
+			
+		}
 	}
 }
