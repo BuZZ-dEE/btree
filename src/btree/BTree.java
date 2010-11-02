@@ -1,5 +1,7 @@
 package btree;
 
+import java.util.Collections;
+
 /**
  * Die Implementierung eines B-Baums f&uuml;r Integerwerte mit den Operationen
  * Einf&uuml;gen und Suchen
@@ -64,25 +66,34 @@ public class BTree implements IBTree {
 		return exists;
 	}
 	
+	/**
+	 * Die Methode teilt einen Knoten in zwei Knoten.
+	 * @param node, der geteilt werden soll
+	 */
 	public void split(Node node) {
 		
 		double halfKeys = (double) (order-1.0) / 2.0;
 		
 		if (node.keys.size() == order-1) {
-			for (int i = 0; i < (int) Math.ceil(halfKeys); i++) {
-				nodeR.keys.add(node.keys.get(i));
-			}
-			for (int i = (int) Math.ceil(halfKeys); i < order; i++) {
+			for (int i = 0; i < (int) Math.ceil(halfKeys) - 1; i++) {
 				nodeL.keys.add(node.keys.get(i));
 			}
-			for (int i = 0; i < (int) Math.ceil(halfKeys) + 1; i++) {
-				nodeR.children.add(node.children.get(i));
+			for (int i = (int) Math.ceil(halfKeys); i < order; i++) {
+				nodeR.keys.add(node.keys.get(i));
 			}
-			for (int i = (int) Math.ceil(halfKeys) + 1; i <= order; i++) {
+			for (int i = 0; i < (int) Math.ceil(halfKeys); i++) {
 				nodeL.children.add(node.children.get(i));
 			}
-			nodeR.father = ;
-			nodeL.father = ;
+			for (int i = (int) Math.ceil(halfKeys); i <= order; i++) {
+				nodeR.children.add(node.children.get(i));
+			}
+			nodeR.father = node.father;
+			nodeL.father = node.father;
+			node.father.keys.add(node.keys.get((int) Math.ceil(halfKeys)));
+			Collections.sort(node.father.keys);
+			node.father.children.set(node.father.keys.indexOf(node.keys.get((int) Math.ceil(halfKeys))), nodeL);
+			node.father.children.add(node.father.keys.indexOf(node.keys.get((int) Math.ceil(halfKeys))) + 1, nodeR);
+
 		}
 	}
 
@@ -92,7 +103,7 @@ public class BTree implements IBTree {
 		//Collections.sort(node);
 		if (contains(key)) {
 			//System.out.println("key already exists");
-			key++;
+			insert(key++);
 		} else {
 			
 		}
