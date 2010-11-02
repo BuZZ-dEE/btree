@@ -12,6 +12,7 @@ public class BTree implements IBTree {
 
 	public int order = 4;
 	public Node root;
+	public Node father;
 	public Node child;
 	public Node nodeR;
 	public Node nodeL;
@@ -80,6 +81,8 @@ public class BTree implements IBTree {
 			for (int i = (int) Math.ceil(halfKeys) + 1; i <= order; i++) {
 				nodeL.children.add(node.children.get(i));
 			}
+			nodeR.father = ;
+			nodeL.father = ;
 		}
 	}
 
