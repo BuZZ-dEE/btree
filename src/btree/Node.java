@@ -16,9 +16,12 @@ public class Node {
 	public ArrayList<Node> children;
 	public ArrayList<Integer> keys;
 	
-	public Node(int min_size, int max_size) {
-		this.min_size = min_size;
-		this.max_size = max_size;
+	public Node() {
+
+	}
+	
+	public boolean isLeaf() {
+		return children.isEmpty();
 	}
 
 	/**
