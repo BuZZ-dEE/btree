@@ -30,18 +30,20 @@ public class BTree implements IBTree {
 		
 		boolean exists = false;
 		
-		for (Integer integer: root.getKeys()) {
-			if (integer == key) {
-				exists = true;
-				System.out.println(root.getKeys().indexOf(key));
-			} else if (integer > key && root.getChildren().get(root.getKeys().indexOf(integer)) != null) {
-				contains(key, root.getChildren().get(root.getKeys().indexOf(integer)));
-			} else if (root.getChildren().get(order) != null) {
-				contains(key, root.getChildren().get(order));
-			} else {
-				System.out.println("key not found");
-			}
-		}
+//		for (Integer integer: root.getKeys()) {
+//			if (integer == key) {
+//				exists = true;
+//				System.out.println(root.getKeys().indexOf(key));
+//			} else if (integer > key && root.getChildren().get(root.getKeys().indexOf(integer)) != null) {
+//				contains(key, root.getChildren().get(root.getKeys().indexOf(integer)));
+//			} else if (root.getChildren().get(order) != null) {
+//				contains(key, root.getChildren().get(order));
+//			} else {
+//				System.out.println("key not found");
+//			}
+//		}
+		
+		exists = contains(key, root);
 		
 		return exists;
 	}
