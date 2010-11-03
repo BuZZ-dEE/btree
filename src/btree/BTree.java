@@ -1,6 +1,5 @@
 package btree;
 
-import java.util.ArrayList;
 import java.util.Collections;
 
 /**
@@ -83,8 +82,8 @@ public class BTree implements IBTree {
 		Node result = null;
 		double halfKeys = (double) (order-1.0) / 2.0;
 		
-		nodeL = new Node();
-		nodeR = new Node();
+		Node nodeL = new Node();
+		Node nodeR = new Node();
 		
 		if (node.getKeys().size() == order-1) {
 			for (int i = 0; i < (int) Math.ceil(halfKeys) - 1; i++) {
@@ -101,8 +100,8 @@ public class BTree implements IBTree {
 			}
 			
 			if (node.getFather() == null) {
-				nodeR.getFather() = node;
-				nodeL.getFather() = node;
+				nodeR.setFather(node);
+				nodeL.setFather(node);
 				int keyBak = node.getKeys().get((int) Math.ceil(halfKeys) - 1);
 				node.getKeys().clear();
 				node.getKeys().add(keyBak);
@@ -111,8 +110,8 @@ public class BTree implements IBTree {
 				
 				result = node;
 			} else {
-				nodeR.getFather() = node.getFather();
-				nodeL.getFather() = node.getFather();
+				nodeR.setFather(node.getFather());
+				nodeL.setFather(node.getFather());
 				node.getFather().getKeys().add(node.getKeys().get((int) Math.ceil(halfKeys)));
 				Collections.sort(node.getFather().getKeys());
 				node.getFather().getChildren().set(node.getFather().getKeys().indexOf(node.getKeys().get((int) Math.ceil(halfKeys))), nodeL);
