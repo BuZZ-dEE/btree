@@ -3,23 +3,24 @@ package btree;
 import java.util.ArrayList;
 
 /**
- * Die Klasse Node repr&auml;sentiert einen Knoten eines B-Baums
+ * The class node represents a b-tree node.
  * 
  * @author BuZZ-dEE
  *
  */
 public class Node {
 
-	public int min_size;
-	public int max_size;
-	public Node father;
-	public ArrayList<Node> children;
-	public ArrayList<Integer> keys;
+	private Node father;
+	private ArrayList<Node> children;
+	private ArrayList<Integer> keys;
 	
 	public Node() {
 
 	}
 	
+	/**
+	 * @return true, if node is a leaf
+	 */
 	public boolean isLeaf() {
 		return children.isEmpty();
 	}
@@ -50,5 +51,19 @@ public class Node {
 	 */
 	public void setChildren(ArrayList<Node> children) {
 		this.children = children;
+	}
+
+	/**
+	 * @return the keys
+	 */
+	public ArrayList<Integer> getKeys() {
+		return keys;
+	}
+
+	/**
+	 * @param keys the keys to set
+	 */
+	public void setKeys(ArrayList<Integer> keys) {
+		this.keys = keys;
 	}
 }
