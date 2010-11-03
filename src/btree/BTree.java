@@ -15,11 +15,11 @@ public class BTree implements IBTree {
 
 	public int order;
 	public Node root;
-	public Node father;
-	public Node child;
-	public Node nodeR;
-	public Node nodeL;
-	public ArrayList<Node> fullNodes;
+//	public Node father;
+//	public Node child;
+//	public Node nodeR;
+//	public Node nodeL;
+//	public ArrayList<Node> fullNodes;
 	
 	public BTree(int order) {
 		this.root = new Node();
