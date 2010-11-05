@@ -15,12 +15,6 @@ public class BTree implements IBTree {
 	public int order;
 	public Node root;
 
-	// public Node father;
-	// public Node child;
-	// public Node nodeR;
-	// public Node nodeL;
-	// public ArrayList<Node> fullNodes;
-
 	public BTree(int order) {
 		this.order = order;
 		this.root = new Node();
@@ -54,8 +48,6 @@ public class BTree implements IBTree {
 		if (node.equals(null)) {
 			System.out.println("no keys");
 		} else {
-			System.out.println("children: " + node.getChildren().size());
-			System.out.println("keys: " + node.getKeys().size());
 			for (Integer integer : node.getKeys()) {
 				if (integer == key) {
 					exists = true;
@@ -110,8 +102,6 @@ public class BTree implements IBTree {
 				int keyBak = node.getKeys().get((int) Math.ceil(halfKeys) - 1);
 				node.getKeys().clear();
 				node.getKeys().add(keyBak);
-//				node.getChildren().add(1, nodeR);
-//				node.getChildren().set(0, nodeL);
 				node.getChildren().clear();
 				node.getChildren().add(nodeL);
 				node.getChildren().add(nodeR);
@@ -133,8 +123,7 @@ public class BTree implements IBTree {
 
 	@Override
 	public void insert(int key) {
-		// Node node = new Node();
-		// Collections.sort(node);
+
 		if (contains(key)) {
 			System.out.println("key already exists");
 			insert(key++);
