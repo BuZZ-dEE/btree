@@ -96,7 +96,6 @@ public class BTree implements IBTree {
 			for (int i = 0; i < (int) Math.ceil(node.getChildren().size() / 2); i++) {
 				nodeL.getChildren().add(node.getChildren().get(i));
 			}
-			System.out.println((int) Math.ceil(node.getChildren().size() / 2));
 			for (int i = (int) Math.ceil(node.getChildren().size() / 2); i < node.getChildren().size(); i++) {
 				nodeR.getChildren().add(node.getChildren().get(i));
 			}
@@ -142,14 +141,16 @@ public class BTree implements IBTree {
 
 	public void insert(int key, Node node) {
 
-		if (node.getKeys().size() == order - 2) {
+		if (node.getKeys().size() == order - 1) {
 			insert(key, split(node));
 		} else if (node.isLeaf()) {
 			node.getKeys().add(key);
 			Collections.sort(node.getKeys());
 		} else {
-			if (node.getKeys().get(order - 2) < key && node.getChildren().get(order - 1) != null) {
-				insert(key, node.getChildren().get(order));
+			System.out.println("keyssize: " + node.getKeys().size());
+			System.out.println("childrensize: " + node.getChildren().size());
+			if (node.getKeys().get(node.getKeys().size() - 1) < key && node.getChildren().get(node.getKeys().size()) != null) {
+				insert(key, node.getChildren().get(node.getKeys().size()));
 			} else {
 				for (Integer integer : node.getKeys()) {
 					if (integer > key && node.getChildren().get(node.getKeys().indexOf(integer)) != null) {
