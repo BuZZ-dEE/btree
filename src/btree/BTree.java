@@ -31,21 +31,6 @@ public class BTree implements IBTree {
 
 		boolean exists = false;
 
-		// for (Integer integer: root.getKeys()) {
-		// if (integer == key) {
-		// exists = true;
-		// System.out.println(root.getKeys().indexOf(key));
-		// } else if (integer > key &&
-		// root.getChildren().get(root.getKeys().indexOf(integer)) != null) {
-		// contains(key,
-		// root.getChildren().get(root.getKeys().indexOf(integer)));
-		// } else if (root.getChildren().get(order) != null) {
-		// contains(key, root.getChildren().get(order));
-		// } else {
-		// System.out.println("key not found");
-		// }
-		// }
-
 		exists = contains(key, root);
 
 		return exists;
@@ -73,11 +58,8 @@ public class BTree implements IBTree {
 				if (integer == key) {
 					exists = true;
 					System.out.println(node.getKeys().indexOf(key));
-				} else if (integer > key
-						&& node.getChildren().get(
-								node.getKeys().indexOf(integer)) != null) {
-					contains(key, node.getChildren().get(
-							node.getKeys().indexOf(integer)));
+				} else if (integer > key && node.getChildren().get(node.getKeys().indexOf(integer)) != null) {
+					contains(key, node.getChildren().get(node.getKeys().indexOf(integer)));
 				} else if (node.getChildren().get(order) != null) {
 					contains(key, node.getChildren().get(order));
 				} else {
@@ -111,11 +93,11 @@ public class BTree implements IBTree {
 			for (int i = (int) Math.ceil(halfKeys); i < order - 1; i++) {
 				nodeR.getKeys().add(node.getKeys().get(i));
 			}
-			for (int i = 0; i < (int) Math.ceil(node.getChildren().size() / 2) /* (int) Math.ceil(halfKeys) */; i++) {
+			for (int i = 0; i < (int) Math.ceil(node.getChildren().size() / 2); i++) {
 				nodeL.getChildren().add(node.getChildren().get(i));
 			}
 			System.out.println((int) Math.ceil(node.getChildren().size() / 2));
-			for (int i = (int) Math.ceil(node.getChildren().size() / 2) /* (int) Math.ceil(halfKeys) */; i < order; i++ /* eventuell <= */) {
+			for (int i = (int) Math.ceil(node.getChildren().size() / 2); i < node.getChildren().size(); i++) {
 				nodeR.getChildren().add(node.getChildren().get(i));
 			}
 
@@ -125,8 +107,11 @@ public class BTree implements IBTree {
 				int keyBak = node.getKeys().get((int) Math.ceil(halfKeys) - 1);
 				node.getKeys().clear();
 				node.getKeys().add(keyBak);
-				node.getChildren().add(1, nodeR);
-				node.getChildren().set(0, nodeL);
+//				node.getChildren().add(1, nodeR);
+//				node.getChildren().set(0, nodeL);
+				node.getChildren().clear();
+				node.getChildren().add(nodeL);
+				node.getChildren().add(nodeR);
 
 				result = node;
 			} else {
@@ -147,43 +132,31 @@ public class BTree implements IBTree {
 	public void insert(int key) {
 		// Node node = new Node();
 		// Collections.sort(node);
-//		if (contains(key)) {
-//			// System.out.println("key already exists");
-//			insert(key++);
-//		} else {
-			insert(key, root);
-//		}
+		// if (contains(key)) {
+		// // System.out.println("key already exists");
+		// insert(key++);
+		// } else {
+		insert(key, root);
+		// }
 	}
 
 	public void insert(int key, Node node) {
 
-		if (node.getKeys().size() == order - 1) {
+		if (node.getKeys().size() == order - 2) {
 			insert(key, split(node));
 		} else if (node.isLeaf()) {
 			node.getKeys().add(key);
 			Collections.sort(node.getKeys());
-
-			// for (int i = node.getKeys().indexOf(key) +1 ; i < order; i++) {
-			//				
-			// }
 		} else {
-			if (node.getKeys().get(order - 1) < key && node.getChildren().get(order) != null) {
+			if (node.getKeys().get(order - 2) < key && node.getChildren().get(order - 1) != null) {
 				insert(key, node.getChildren().get(order));
 			} else {
 				for (Integer integer : node.getKeys()) {
 					if (integer > key && node.getChildren().get(node.getKeys().indexOf(integer)) != null) {
 						insert(key, node.getChildren().get(node.getKeys().indexOf(integer)));
 						break;
+					}
 				}
-			}
-//			for (Integer integer : node.getKeys()) {
-//				if (integer > key && node.getChildren().get(node.getKeys().indexOf(integer)) != null) {
-//					insert(key, node.getChildren().get(node.getKeys().indexOf(integer)));
-//					break;
-//				} else if (node.getKeys().get(order - 1) < key && node.getChildren().get(order) != null) {
-//					insert(key, node.getChildren().get(order));
-//					break;
-//				}
 			}
 		}
 	}
