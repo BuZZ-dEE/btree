@@ -15,7 +15,9 @@ public class Node {
 	private ArrayList<Integer> keys;
 	
 	public Node() {
-
+		//this.father = new Node();
+		this.children = new ArrayList<Node>();
+		this.keys = new ArrayList<Integer>();
 	}
 	
 	/**
