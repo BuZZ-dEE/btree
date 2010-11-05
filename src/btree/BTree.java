@@ -54,14 +54,18 @@ public class BTree implements IBTree {
 		if (node.equals(null)) {
 			System.out.println("no keys");
 		} else {
+			System.out.println("children: " + node.getChildren().size());
+			System.out.println("keys: " + node.getKeys().size());
 			for (Integer integer : node.getKeys()) {
 				if (integer == key) {
 					exists = true;
 					System.out.println(node.getKeys().indexOf(key));
-				} else if (integer > key && node.getChildren().get(node.getKeys().indexOf(integer)) != null) {
+					break;
+				} else if (integer > key && !node.isLeaf()/* node.getChildren().get(node.getKeys().indexOf(integer)) != null */) {
 					contains(key, node.getChildren().get(node.getKeys().indexOf(integer)));
-				} else if (node.getChildren().get(order) != null) {
-					contains(key, node.getChildren().get(order));
+					break;
+				} else if (node.getKeys().get(node.getKeys().size() - 1) < key && !node.isLeaf()/* node.getChildren().get(node.getKeys().size()) != null */) {
+					contains(key, node.getChildren().get(node.getKeys().size()));
 				} else {
 					System.out.println("key not found");
 				}
@@ -76,7 +80,7 @@ public class BTree implements IBTree {
 	 * 
 	 * @param node
 	 *            , der geteilt werden soll
-	 * @return der Vaterknoten der des in zweit Knoten aufgeteilten Knoten
+	 * @return der Vaterknoten der des in zwei Knoten aufgeteilten Knoten
 	 */
 	public Node split(Node node) {
 
@@ -131,12 +135,12 @@ public class BTree implements IBTree {
 	public void insert(int key) {
 		// Node node = new Node();
 		// Collections.sort(node);
-		// if (contains(key)) {
-		// // System.out.println("key already exists");
-		// insert(key++);
-		// } else {
-		insert(key, root);
-		// }
+		if (contains(key)) {
+			System.out.println("key already exists");
+			insert(key++);
+		} else {
+			insert(key, root);
+		}
 	}
 
 	public void insert(int key, Node node) {
@@ -147,8 +151,6 @@ public class BTree implements IBTree {
 			node.getKeys().add(key);
 			Collections.sort(node.getKeys());
 		} else {
-			System.out.println("keyssize: " + node.getKeys().size());
-			System.out.println("childrensize: " + node.getChildren().size());
 			if (node.getKeys().get(node.getKeys().size() - 1) < key && node.getChildren().get(node.getKeys().size()) != null) {
 				insert(key, node.getChildren().get(node.getKeys().size()));
 			} else {
