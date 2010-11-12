@@ -117,10 +117,10 @@ public class BTree implements IBTree {
 			} else {
 				nodeL.setFather(node.getFather());
 				nodeR.setFather(node.getFather());
-				node.getFather().getKeys().add(node.getKeys().get((int) Math.ceil(halfKeys)));
+				node.getFather().getKeys().add(node.getKeys().get((int) Math.ceil(halfKeys)) - 1);
 				Collections.sort(node.getFather().getKeys());
-				node.getFather().getChildren().set(node.getFather().getKeys().indexOf(node.getKeys().get((int) Math.ceil(halfKeys))), nodeL);
-				node.getFather().getChildren().add(node.getFather().getKeys().indexOf(node.getKeys().get((int) Math.ceil(halfKeys))) + 1, nodeR);
+				node.getFather().getChildren().set(node.getFather().getKeys().indexOf(node.getKeys().get((int) Math.ceil(halfKeys)) - 1), nodeL);
+				node.getFather().getChildren().add(node.getFather().getKeys().indexOf(node.getKeys().get((int) Math.ceil(halfKeys))), nodeR);
 
 				result = node.getFather();
 			}
