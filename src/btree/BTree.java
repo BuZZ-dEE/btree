@@ -104,8 +104,8 @@ public class BTree implements IBTree {
 			}
 
 			if (node.getFather() == null) {
-				nodeR.setFather(node);
 				nodeL.setFather(node);
+				nodeR.setFather(node);
 				int keyBak = node.getKeys().get((int) Math.ceil(halfKeys) - 1);
 				node.getKeys().clear();
 				node.getKeys().add(keyBak);
