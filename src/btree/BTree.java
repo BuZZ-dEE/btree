@@ -17,6 +17,9 @@ public class BTree implements IBTree {
 
 	/**
 	 * Einen B-Baum einer bestimmten Ordnung erstellen, beginnend mit dem Wurzelknoten.
+	 * Die Ordung bezeichnet in diesem Fall den maximalen Verzweigungsgrad eines Knotens.
+	 * Damit kann ein Knoten maximal "Ordnung - 1" Schl&uuml;ssel besitzen.
+	 * 
 	 * @param order, die Ordnung des B-Baumes
 	 */
 	public BTree(int order) {
@@ -93,10 +96,10 @@ public class BTree implements IBTree {
 			for (int i = (int) Math.ceil(halfKeys); i < order - 1; i++) {
 				nodeR.getKeys().add(node.getKeys().get(i));
 			}
-			for (int i = 0; i < (int) Math.ceil(node.getChildren().size() / 2); i++) {
+			for (int i = 0; i < (int) Math.ceil((node.getChildren().size() - 1) / 2); i++) {
 				nodeL.getChildren().add(node.getChildren().get(i));
 			}
-			for (int i = (int) Math.ceil(node.getChildren().size() / 2); i < node.getChildren().size(); i++) {
+			for (int i = (int) Math.ceil((node.getChildren().size() - 1) / 2); i < node.getChildren().size(); i++) {
 				nodeR.getChildren().add(node.getChildren().get(i));
 			}
 
@@ -128,7 +131,7 @@ public class BTree implements IBTree {
 	@Override
 	public void insert(int key) {
 
-//		if (contains(key)) {h 
+//		if (contains(key)) {
 //			System.out.println("key already exists");
 //			insert(key++);
 //		} else {
@@ -138,6 +141,7 @@ public class BTree implements IBTree {
 
 	/**
 	 * F&uuml;gt den gegebenen Schl&uuml;ssel in den Baum ein.
+	 * 
 	 * @param key, der Schl&uuml; der in den Baum eingef&uuml; werden soll.
 	 * @param node, der Knoten f&uuml; den gepr&uuml; wird, ob das Einf&uuml; in diesen Knoten erlaubt ist.
 	 */
@@ -162,6 +166,12 @@ public class BTree implements IBTree {
 		}
 	}
 
+	/**
+	 * Die Main-Methode erstellt einen neuen B-Baum und f&uuml;gt Werte nach einem 
+	 * bestimmten Schema in den B-Baum ein.
+	 * 
+	 * @param args, nicht in Benutzung
+	 */
 	public static void main(String[] args) {
 		BTree btree = new BTree(4);
 		int x_i = 65;
@@ -170,5 +180,7 @@ public class BTree implements IBTree {
 			x_i = (57 * x_i + 74) % 1001;
 			btree.insert(x_i);
 		}
+		System.out.println((int) Math.ceil(1.5));
+		System.out.println((int) Math.ceil(2.0));
 	}
 }
