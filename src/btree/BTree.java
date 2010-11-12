@@ -7,7 +7,7 @@ import java.util.Collections;
  * Einf&uuml;gen und Suchen
  * 
  * @author BuZZ-dEE
- * @version 2010-11-01
+ * @version 2010-11-06
  * 
  */
 public class BTree implements IBTree {
@@ -15,9 +15,13 @@ public class BTree implements IBTree {
 	public int order;
 	public Node root;
 
+	/**
+	 * Einen B-Baum einer bestimmten Ordnung erstellen, beginnend mit dem Wurzelknoten.
+	 * @param order, die Ordnung des B-Baumes
+	 */
 	public BTree(int order) {
 		this.order = order;
-		this.root = new Node();
+		this.root = new Node(order);
 	}
 
 	@Override
@@ -79,8 +83,8 @@ public class BTree implements IBTree {
 		Node result = null;
 		double halfKeys = (double) (order - 1.0) / 2.0;
 
-		Node nodeL = new Node();
-		Node nodeR = new Node();
+		Node nodeL = new Node(order);
+		Node nodeR = new Node(order);
 
 		if (node.getKeys().size() == order - 1) {
 			for (int i = 0; i < (int) Math.ceil(halfKeys) - 1; i++) {
@@ -124,14 +128,19 @@ public class BTree implements IBTree {
 	@Override
 	public void insert(int key) {
 
-		if (contains(key)) {
-			System.out.println("key already exists");
-			insert(key++);
-		} else {
+//		if (contains(key)) {h 
+//			System.out.println("key already exists");
+//			insert(key++);
+//		} else {
 			insert(key, root);
-		}
+//		}
 	}
 
+	/**
+	 * F&uuml;gt den gegebenen Schl&uuml;ssel in den Baum ein.
+	 * @param key, der Schl&uuml; der in den Baum eingef&uuml; werden soll.
+	 * @param node, der Knoten f&uuml; den gepr&uuml; wird, ob das Einf&uuml; in diesen Knoten erlaubt ist.
+	 */
 	public void insert(int key, Node node) {
 
 		if (node.getKeys().size() == order - 1) {
@@ -161,6 +170,5 @@ public class BTree implements IBTree {
 			x_i = (57 * x_i + 74) % 1001;
 			btree.insert(x_i);
 		}
-
 	}
 }

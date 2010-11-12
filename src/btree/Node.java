@@ -14,10 +14,10 @@ public class Node {
 	private ArrayList<Node> children;
 	private ArrayList<Integer> keys;
 	
-	public Node() {
+	public Node(int order) {
 		//this.father = new Node();
-		this.children = new ArrayList<Node>();
-		this.keys = new ArrayList<Integer>();
+		this.children = new ArrayList<Node>(order);
+		this.keys = new ArrayList<Integer>(order - 1);
 	}
 	
 	/**

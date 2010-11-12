@@ -8,7 +8,7 @@ package btree;
 public interface IBTree {
 	
 	/**
-	 * Fügt den gegebenen Schl&uuml;ssel in den Baum ein.
+	 * F&uuml;gt den gegebenen Schl&uuml;ssel in den Baum ein.
 	 * @param key einzufügender Schluessel
 	 */
 	public void insert(int key);
