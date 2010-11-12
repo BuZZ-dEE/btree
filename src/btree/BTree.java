@@ -115,8 +115,8 @@ public class BTree implements IBTree {
 
 				result = node;
 			} else {
-				nodeR.setFather(node.getFather());
 				nodeL.setFather(node.getFather());
+				nodeR.setFather(node.getFather());
 				node.getFather().getKeys().add(node.getKeys().get((int) Math.ceil(halfKeys)));
 				Collections.sort(node.getFather().getKeys());
 				node.getFather().getChildren().set(node.getFather().getKeys().indexOf(node.getKeys().get((int) Math.ceil(halfKeys))), nodeL);
