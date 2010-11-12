@@ -180,7 +180,5 @@ public class BTree implements IBTree {
 			x_i = (57 * x_i + 74) % 1001;
 			btree.insert(x_i);
 		}
-		System.out.println((int) Math.ceil(1.5));
-		System.out.println((int) Math.ceil(2.0));
 	}
 }
