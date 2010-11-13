@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * The class node represents a b-tree node.
  * 
  * @author BuZZ-dEE
- *
+ * @version 2010-11-12
  */
 public class Node {
 
@@ -15,7 +15,6 @@ public class Node {
 	private ArrayList<Integer> keys;
 	
 	public Node(int order) {
-		//this.father = new Node();
 		this.children = new ArrayList<Node>(order);
 		this.keys = new ArrayList<Integer>(order - 1);
 	}

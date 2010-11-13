@@ -7,7 +7,7 @@ import java.util.Collections;
  * Einf&uuml;gen und Suchen
  * 
  * @author BuZZ-dEE
- * @version 2010-11-06
+ * @version 2010-11-12
  * 
  */
 public class BTree implements IBTree {
@@ -29,11 +29,9 @@ public class BTree implements IBTree {
 
 	@Override
 	public boolean contains(int key) {
-
+		
 		boolean exists = false;
-
 		exists = contains(key, root);
-
 		return exists;
 	}
 
@@ -85,6 +83,7 @@ public class BTree implements IBTree {
 
 		Node result = null;
 		double halfKeys = (double) (order - 1.0) / 2.0;
+		int keyUp = node.getKeys().get((int) Math.ceil(halfKeys) - 1);
 
 		Node nodeL = new Node(order);
 		Node nodeR = new Node(order);
@@ -106,9 +105,8 @@ public class BTree implements IBTree {
 			if (node.getFather() == null) {
 				nodeL.setFather(node);
 				nodeR.setFather(node);
-				int keyBak = node.getKeys().get((int) Math.ceil(halfKeys) - 1);
 				node.getKeys().clear();
-				node.getKeys().add(keyBak);
+				node.getKeys().add(keyUp);
 				node.getChildren().clear();
 				node.getChildren().add(nodeL);
 				node.getChildren().add(nodeR);
@@ -117,10 +115,14 @@ public class BTree implements IBTree {
 			} else {
 				nodeL.setFather(node.getFather());
 				nodeR.setFather(node.getFather());
-				node.getFather().getKeys().add(node.getKeys().get((int) Math.ceil(halfKeys)) - 1);
+				node.getFather().getKeys().add(keyUp);
 				Collections.sort(node.getFather().getKeys());
-				node.getFather().getChildren().set(node.getFather().getKeys().indexOf(node.getKeys().get((int) Math.ceil(halfKeys)) - 1), nodeL);
-				node.getFather().getChildren().add(node.getFather().getKeys().indexOf(node.getKeys().get((int) Math.ceil(halfKeys))), nodeR);
+				node.getFather().getChildren().set(node.getFather().getKeys().indexOf(node.getKeys().get((int) Math.ceil(halfKeys) - 1)), nodeL);
+				System.out.println("father-children-size: " + node.getFather().getChildren().size());
+				System.out.println("father-keys-size: " + node.getFather().getKeys().size());
+				System.out.println("node-keys-size: " + node.getKeys().size());
+				System.out.println("father-keys-index: " + node.getFather().getKeys().indexOf(node.getKeys().get((int) Math.ceil(halfKeys) - 1)) + 1);
+				node.getFather().getChildren().add(node.getFather().getKeys().indexOf(node.getKeys().get((int) Math.ceil(halfKeys) - 1)) + 1, nodeR);
 
 				result = node.getFather();
 			}
@@ -142,8 +144,8 @@ public class BTree implements IBTree {
 	/**
 	 * F&uuml;gt den gegebenen Schl&uuml;ssel in den Baum ein.
 	 * 
-	 * @param key, der Schl&uuml; der in den Baum eingef&uuml; werden soll.
-	 * @param node, der Knoten f&uuml; den gepr&uuml; wird, ob das Einf&uuml; in diesen Knoten erlaubt ist.
+	 * @param key, der Schl&uuml;ssel der in den Baum eingef&uuml;gt werden soll.
+	 * @param node, der Knoten f&uuml;r den gepr&uuml;ft wird, ob das Einf&uuml;gen in diesen Knoten erlaubt ist.
 	 */
 	public void insert(int key, Node node) {
 
@@ -153,11 +155,15 @@ public class BTree implements IBTree {
 			node.getKeys().add(key);
 			Collections.sort(node.getKeys());
 		} else {
-			if (node.getKeys().get(node.getKeys().size() - 1) < key && node.getChildren().get(node.getKeys().size()) != null) {
+			System.out.println("keysize: " + node.getKeys().size());
+			System.out.println("childrensize: " + node.getChildren().size());
+			System.out.println("key: " + key);
+			System.out.println("letzter schlüssel: " + node.getKeys().get(node.getKeys().size() - 1));
+			if (node.getKeys().get(node.getKeys().size() - 1) < key) {
 				insert(key, node.getChildren().get(node.getKeys().size()));
 			} else {
 				for (Integer integer : node.getKeys()) {
-					if (integer > key && node.getChildren().get(node.getKeys().indexOf(integer)) != null) {
+					if (integer > key) {
 						insert(key, node.getChildren().get(node.getKeys().indexOf(integer)));
 						break;
 					}
@@ -180,5 +186,6 @@ public class BTree implements IBTree {
 			x_i = (57 * x_i + 74) % 1001;
 			btree.insert(x_i);
 		}
+		System.out.println("Ende");
 	}
 }
